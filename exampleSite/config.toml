@@ -1,4 +1,4 @@
-baseURL = "https://xingxia.xyz/blog"
+baseURL = "https://xingxia.xyz"
 
 # theme
 # 主题
@@ -649,10 +649,10 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   # Analytics config
   # 网站分析配置
   [params.analytics]
-    enable = false
+    enable = true
     # Google Analytics
     [params.analytics.google]
-      id = ""
+      id = "G-BFB7M13SE9"
       # whether to anonymize IP
       # 是否匿名化用户 IP
       anonymizeIP = true
