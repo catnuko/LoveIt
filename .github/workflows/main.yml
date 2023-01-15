@@ -1,0 +1,39 @@
+name: hugo-deploy
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+jobs:
+  hugo-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: 配置hugo环境
+        uses: peaceiris/actions-hugo@v2.6.0
+        with:
+          extended: true
+          hugo-version: 0.109.0
+      - name: 配置go语言环境
+        uses: actions/setup-go@v3.3.1
+        with:
+          go-version: 1.19
+          check-latest: true
+          cache: true
+      - name: 配置node环境
+        uses: actions/setup-node@v3.6.0
+        with:
+          ndoe-version: 16.3.1
+          cache: pnpm
+      - name: hugo打包网站
+        run: pnpm install && pnpm build
+      - name: 将打包后的文件发送到服务器
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}  
+          username: ${{ secrets.HUAWEI_USERNAME }} 
+          port: ${{ secrets.SSH_PORT }} 
+          password: ${{ secrets.HUAWEI_PASSWORD }}
+          source: "./web/LoveIt/exampleSite/public" 
+          target: "/usr/share/nginx/html/blog"
+          strip_components: 5
+          overwrite: true
