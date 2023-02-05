@@ -16,7 +16,7 @@ jobs:
       - name: 配置node环境
         uses: actions/setup-node@v3.6.0
       - name: hugo打包网站
-        run: npm install && npm build
+        run: npm run install && npm run build
       - name: 将打包后的文件发送到服务器
         uses: appleboy/scp-action@master
         with:
